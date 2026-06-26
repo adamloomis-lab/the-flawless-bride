@@ -1,0 +1,239 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Cormorant Garamond display serif (editorial bridal) + Jost geometric labels/body */
+  --font-display: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-body: 'Jost', ui-sans-serif, system-ui, sans-serif;
+
+  /* Soft, warm light surfaces — ivory + blush */
+  --color-ivory: #fdfaf6;
+  --color-cream: #fbf5ef;
+  --color-blush: #f6e8e1;
+  --color-blush-deep: #efd8cf;
+  --color-champagne: #f3ebe0;
+
+  /* Warm taupe — primary CTA / dark footer */
+  --color-taupe: #5b4d42;
+  --color-taupe-dark: #463a31;
+  --color-taupe-light: #7a6a5d;
+  --color-on-taupe: #fbf5ef;
+
+  /* Dusty rose — eyebrows, rules, accents */
+  --color-rose: #b58a7a;
+  --color-rose-dark: #9c7062;
+  --color-rose-light: #d6b3a6;
+
+  /* Typography on light */
+  --color-ink: #3a302a;
+  --color-on-surface: #5b5048;
+  --color-on-surface-variant: #6b5c51;
+  --color-muted: #a89b8e;
+
+  --color-outline: #e6d8cf;
+  --color-outline-variant: #efe4db;
+  --color-error: #b3635a;
+
+  /* Type scale — Cormorant display / Jost body */
+  --text-display-xl: 92px;
+  --text-display-xl--line-height: 1.02;
+  --text-display-xl--letter-spacing: 0.005em;
+  --text-display-xl--font-weight: 500;
+  --text-display-lg: 66px;
+  --text-display-lg--line-height: 1.05;
+  --text-display-lg--font-weight: 500;
+  --text-headline-lg: 48px;
+  --text-headline-lg--line-height: 1.12;
+  --text-headline-lg--font-weight: 500;
+  --text-headline-md: 34px;
+  --text-headline-md--line-height: 1.2;
+  --text-headline-md--font-weight: 500;
+  --text-headline-sm: 25px;
+  --text-headline-sm--line-height: 1.3;
+  --text-headline-sm--font-weight: 600;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.75;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.75;
+  --text-label-lg: 12px;
+  --text-label-lg--line-height: 1.2;
+  --text-label-lg--letter-spacing: 0.28em;
+  --text-label-lg--font-weight: 500;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 1.2;
+  --text-label-sm--letter-spacing: 0.26em;
+  --text-label-sm--font-weight: 500;
+
+  --spacing-section-gap: 120px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 56px;
+
+  --radius-DEFAULT: 2px;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-on-surface);
+    font-family: var(--font-body);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    letter-spacing: 0.005em;
+  }
+  a, button:not(:disabled), [role='button'] {
+    cursor: pointer;
+  }
+  ::selection {
+    background-color: var(--color-rose-light);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 80rem;
+    padding-inline: var(--spacing-margin-mobile);
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: var(--spacing-margin-desktop);
+    }
+  }
+  /* Eyebrow — uppercase tracked dusty-rose caption */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-label-lg);
+    line-height: var(--text-label-lg--line-height);
+    letter-spacing: var(--text-label-lg--letter-spacing);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-rose-dark);
+  }
+  /* Thin rose rule under section headings */
+  .rule {
+    display: inline-block;
+    width: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-rose), transparent);
+  }
+  /* Check-style bullet list (tips) */
+  .tick-list li {
+    position: relative;
+    padding-left: 1.9rem;
+  }
+  .tick-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-rose);
+    box-shadow: 0 0 0 4px rgba(181, 138, 122, 0.16);
+  }
+}
+
+/* Soft scrim so hero text stays legible over imagery/video */
+.hero-scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(58, 48, 42, 0.34) 0%,
+    rgba(58, 48, 42, 0.28) 45%,
+    rgba(58, 48, 42, 0.5) 100%
+  );
+}
+
+/* Slow Ken Burns drift on hero / section background media */
+.kenburns {
+  animation: tfb-kenburns 30s ease-in-out infinite alternate;
+  transform-origin: center;
+  will-change: transform;
+}
+@keyframes tfb-kenburns {
+  from { transform: scale(1.05) translate3d(0, 0, 0); }
+  to { transform: scale(1.13) translate3d(0, -1.5%, 0); }
+}
+
+/* Parallax: useParallax writes --p (0..1); element drifts vertically. */
+.parallax {
+  transform: translate3d(0, calc((var(--p, 0.5) - 0.5) * 2 * var(--p-amt, 26px)), 0);
+  will-change: transform;
+}
+
+/* ---- Scroll-reveal + entrance motion ---------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: tfb-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .rise-1 { animation-delay: 0.08s; }
+  .rise-2 { animation-delay: 0.2s; }
+  .rise-3 { animation-delay: 0.32s; }
+  .rise-4 { animation-delay: 0.44s; }
+  @keyframes tfb-rise {
+    from { opacity: 0; transform: translateY(22px); filter: blur(3px); }
+    to { opacity: 1; transform: none; filter: blur(0); }
+  }
+
+  .reveal-ready .reveal,
+  .reveal-ready .reveal-group > * {
+    opacity: 0;
+    transform: translateY(26px) scale(0.99);
+    filter: blur(3px);
+    transition:
+      opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+  }
+  .reveal-ready .reveal.is-visible,
+  .reveal-ready .reveal-group.is-visible > * {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(2) { transition-delay: 0.1s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(3) { transition-delay: 0.2s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(4) { transition-delay: 0.3s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(5) { transition-delay: 0.4s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(6) { transition-delay: 0.5s; }
+
+  .rule {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+  .reveal-ready .reveal.is-visible .rule,
+  .reveal-ready .rule.is-visible {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenburns, .parallax { animation: none; transform: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* WCAG 2.4.7 keyboard focus */
+*:focus-visible {
+  outline: 2px solid var(--color-rose-dark);
+  outline-offset: 3px;
+}
+
+/* WCAG 1.4.3 placeholder contrast — minimum #7d6e63 on ivory */
+::placeholder {
+  color: #7d6e63;
+  opacity: 1;
+}
