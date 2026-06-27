@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, useLocation } from 'wouter'
 import { Menu, X, MapPin, Clock, Phone, Facebook, Instagram, ArrowRight, CalendarHeart } from 'lucide-react'
 import Logo from './Logo'
@@ -109,8 +110,14 @@ export default function Navbar() {
       </nav>
 
       {/* ---- Elevated mobile menu --------------------------------------- */}
-      {/* Blurred dark backdrop */}
-      <div
+      {/* Portaled to <body> so it escapes the header's `backdrop-blur`
+          containing block (which otherwise clamps the fixed panel to the
+          header's height once scrolled). */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <>
+            {/* Blurred dark backdrop */}
+            <div
         onClick={() => setOpen(false)}
         aria-hidden="true"
         className={`fixed inset-0 z-50 bg-[#3a302a]/55 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
@@ -159,7 +166,7 @@ export default function Navbar() {
               return (
                 <li
                   key={l.href}
-                  className={open ? 'tfb-pill-in' : ''}
+                  className={open ? 'tfb-link-in motion-reduce:[animation:none]' : ''}
                   style={open ? { animationDelay: `${0.06 + i * 0.06}s` } : undefined}
                 >
                   <Link
@@ -250,7 +257,10 @@ export default function Navbar() {
             )}
           </div>
         </div>
-      </div>
+            </div>
+          </>,
+          document.body,
+        )}
     </header>
   )
 }
