@@ -9,7 +9,7 @@ export default function NotFound() {
           This page slipped away
         </h1>
         <p className="mx-auto mt-5 max-w-md text-body-lg text-on-surface-variant">
-          The page you're looking for can't be found — but your dress is still out there. Let's get
+          The page you're looking for can't be found, but your dress is still out there. Let's get
           you back on track.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-4">

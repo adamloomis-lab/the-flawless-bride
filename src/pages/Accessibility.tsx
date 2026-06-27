@@ -40,7 +40,7 @@ export default function Accessibility() {
         If you encounter any accessibility barrier on this site, please contact us and we will
         address it promptly. Call us at{' '}
         <a href={company.phoneHref}>{company.phone}</a> or reach out through our{' '}
-        <a href="/contact">contact page</a> — we are happy to help.
+        <a href="/contact">contact page</a>. We are happy to help.
       </p>
     </LegalLayout>
   )

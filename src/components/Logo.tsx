@@ -12,7 +12,7 @@ export default function Logo({
   const src = tone === 'light' ? '/images/logo-white.png' : '/images/logo-trans.png'
   return (
     <Link href="/" className={`inline-flex ${className}`}>
-      <img src={src} alt="The Flawless Bride — home" width={120} height={120} className="h-full w-auto" />
+      <img src={src} alt="The Flawless Bride home" width={120} height={120} className="h-full w-auto" />
     </Link>
   )
 }

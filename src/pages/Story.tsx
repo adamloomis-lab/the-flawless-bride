@@ -79,7 +79,7 @@ export default function Story() {
             <div className="relative aspect-video">
               <iframe
                 src="https://www.youtube-nocookie.com/embed/0l01dgif2DI"
-                title="Plus-Size Wedding Dress Shopping — The Flawless Bride"
+                title="Plus-Size Wedding Dress Shopping, The Flawless Bride"
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

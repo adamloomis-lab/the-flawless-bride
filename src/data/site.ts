@@ -10,7 +10,7 @@ export const company = {
   name: 'The Flawless Bride',
   tagline: 'Bridal, Beautifully Tailored to You',
   shortBlurb:
-    "Northeast Ohio's premier bridal boutique dedicated to sizes 16 to 32W — today's top designers, expert fittings, and a private experience built around you.",
+    "Northeast Ohio's premier bridal boutique dedicated to sizes 16 to 32W. Today's top designers, expert fittings, and a private experience built around you.",
   // Confirmed from the boutique's live Setmore booking page.
   phone: '(330) 615-7195',
   phoneHref: 'tel:+13306157195',
@@ -83,7 +83,7 @@ export const testimonials = [
   {
     name: 'Laura R.',
     quote:
-      'If you are a plus size bride, this should be the first stop on your journey of trying to find your dress. The staff here is an absolute joy to work with — they are truly there to help you feel beautiful.',
+      'If you are a plus size bride, this should be the first stop on your journey of trying to find your dress. The staff here is an absolute joy to work with. They are truly there to help you feel beautiful.',
   },
   {
     name: 'Emily P.',
@@ -93,7 +93,7 @@ export const testimonials = [
   {
     name: 'Hunter W.',
     quote:
-      "We went shopping for my sister's wedding dress and this place is an absolute DREAM! The owner is so sweet and an absolute expert — she knew exactly what we needed to see. I would recommend this to ANY plus size bride. The positivity is incredible.",
+      "We went shopping for my sister's wedding dress and this place is an absolute DREAM! The owner is so sweet and an absolute expert. She knew exactly what we needed to see. I would recommend this to ANY plus size bride. The positivity is incredible.",
   },
   {
     name: 'Krista L.',
@@ -134,7 +134,7 @@ export const bookingTips = [
   'Bring shoes with the heel height you plan to wear on your wedding day',
   'Bring inspiration photos if you have them, or come open to discovering your style',
   'Plan to spend the full 50 minutes with us',
-  'Two guests maximum, adults only — too many opinions can make the decision harder',
+  'Two guests maximum, adults only (too many opinions can make the decision harder)',
 ]
 
 export const goodToKnow = [

@@ -132,7 +132,7 @@ export default function Home() {
             </p>
             <p className="mt-5 text-body-md text-on-surface-variant">
               Your consultant will guide you through our collection, help you discover what styles
-              love your shape, and walk with you through every step of the process — from the first
+              love your shape, and walk with you through every step of the process, from the first
               dress to the final fitting.
             </p>
             <div className="mt-8">

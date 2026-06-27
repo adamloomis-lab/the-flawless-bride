@@ -8,7 +8,7 @@ export default function Gallery() {
       <PageHero
         eyebrow="Gallery"
         title="Real Brides. Real Moments."
-        subtitle="There's nothing quite like the moment a bride sees herself in the dress. Here are a few of our favorites — from our shop, our brides, and our designers."
+        subtitle="There's nothing quite like the moment a bride sees herself in the dress. Here are a few of our favorites, from our shop, our brides, and our designers."
       />
 
       <section className="bg-cream">

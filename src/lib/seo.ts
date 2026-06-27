@@ -107,7 +107,7 @@ export function getPageMeta(rawPath: string): PageMeta {
   switch (path) {
     case '/':
       return {
-        title: 'The Flawless Bride | Plus-Size Bridal Boutique — Cleveland & Akron, OH',
+        title: 'The Flawless Bride | Plus-Size Bridal Boutique, Cleveland & Akron, OH',
         description:
           "Northeast Ohio's premier bridal boutique for sizes 16 to 32W. Today's top designers, private fittings, and an experience built around you. Book your appointment.",
         canonical: pageUrl('/'),
@@ -116,18 +116,18 @@ export function getPageMeta(rawPath: string): PageMeta {
       }
     case '/our-story':
       return {
-        title: 'Our Story | The Flawless Bride — Plus-Size Bridal in Northeast Ohio',
+        title: 'Our Story | The Flawless Bride, Plus-Size Bridal in Northeast Ohio',
         description:
-          'Why we built Northeast Ohio’s only bridal boutique dedicated to sizes 16 to 32W — where every gown is made to fit, flatter, and be tried on the way it’s meant to be worn.',
+          'Why we built Northeast Ohio’s only bridal boutique dedicated to sizes 16 to 32W, where every gown is made to fit, flatter, and be tried on the way it’s meant to be worn.',
         canonical: pageUrl('/our-story'),
         ogImage: abs('/images/detail-lace-back.webp'),
         jsonLd: [localBusinessSchema(), crumb('Our Story', '/our-story')],
       }
     case '/gallery':
       return {
-        title: 'Gallery | Real Brides at The Flawless Bride — Cleveland & Akron',
+        title: 'Gallery | Real Brides at The Flawless Bride, Cleveland & Akron',
         description:
-          'Real brides, real moments. Browse gowns from our shop, our brides, and our designers — all available to try on in sizes 16 to 32W.',
+          'Real brides, real moments. Browse gowns from our shop, our brides, and our designers, all available to try on in sizes 16 to 32W.',
         canonical: pageUrl('/gallery'),
         ogImage: abs('/images/g-ballgown-white.webp'),
         jsonLd: [
@@ -144,17 +144,17 @@ export function getPageMeta(rawPath: string): PageMeta {
       }
     case '/book':
       return {
-        title: 'Book an Appointment | The Flawless Bride — Private Bridal Fittings',
+        title: 'Book an Appointment | The Flawless Bride, Private Bridal Fittings',
         description:
-          'Private, by-appointment bridal consultations (about 50 minutes) for sizes 16 to 32W. What to expect, tips, timelines, and pricing — plus book your appointment online.',
+          'Private, by-appointment bridal consultations (about 50 minutes) for sizes 16 to 32W. What to expect, tips, timelines, and pricing, plus book your appointment online.',
         canonical: pageUrl('/book'),
         ogImage: abs('/images/g-seated-window.webp'),
         jsonLd: [localBusinessSchema(), crumb('Book an Appointment', '/book')],
       }
     case '/contact':
       return {
-        title: 'Contact & Visit | The Flawless Bride — Cleveland & Akron Bridal',
-        description: `Visit The Flawless Bride. Hours, directions, and contact details for Northeast Ohio’s plus-size bridal boutique. Appointments required — call ${company.phone}.`,
+        title: 'Contact & Visit | The Flawless Bride, Cleveland & Akron Bridal',
+        description: `Visit The Flawless Bride. Hours, directions, and contact details for Northeast Ohio’s plus-size bridal boutique. Appointments required. Call ${company.phone}.`,
         canonical: pageUrl('/contact'),
         ogImage,
         jsonLd: [

@@ -12,7 +12,7 @@ export default function Privacy() {
       <h2>Information We Collect</h2>
       <p>
         When you submit our contact form or book an appointment, we collect the information you
-        provide — such as your name, email address, phone number, wedding date, and any message you
+        provide, such as your name, email address, phone number, wedding date, and any message you
         send us. We use this information solely to respond to your inquiry and coordinate your
         appointment.
       </p>

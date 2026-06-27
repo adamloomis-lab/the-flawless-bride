@@ -31,12 +31,12 @@ export default function Book() {
             <p className="mt-6 text-body-lg text-on-surface">
               When you arrive, your consultant will sit down with you to talk about your wedding,
               your style, your venue, and the look you've been dreaming about. From there, you'll
-              pull dresses together and start trying them on in your size — the way they're meant to
+              pull dresses together and start trying them on in your size, the way they're meant to
               be worn.
             </p>
             <p className="mt-5 text-body-md text-on-surface-variant">
               We ask that you bring no more than two guests, and that all guests are adults. A small,
-              trusted circle keeps the focus on you — too many opinions can make the decision harder,
+              trusted circle keeps the focus on you. Too many opinions can make the decision harder,
               not easier.
             </p>
           </div>

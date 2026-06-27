@@ -109,7 +109,7 @@ export default function Contact() {
               <div className="mt-8 rounded border border-rose/30 bg-blush p-10 text-center">
                 <p className="eyebrow">Message Received</p>
                 <h3 className="mt-4 font-display text-headline-md text-ink">
-                  Thank you — and congratulations!
+                  Thank you, and congratulations!
                 </h3>
                 <span className="rule mx-auto mt-5 block w-14" />
                 <p className="mt-6 text-body-lg text-on-surface">
