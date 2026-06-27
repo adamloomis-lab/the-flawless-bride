@@ -1,7 +1,20 @@
 import { useState } from 'react'
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import type { ChangeEvent } from 'react'
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  CalendarHeart,
+  HelpCircle,
+  Ruler,
+  Scissors,
+  MessageCircle,
+  type LucideIcon,
+} from 'lucide-react'
 import PageHero from '../components/PageHero'
 import SectionHeading from '../components/SectionHeading'
+import { FloatField, SuccessCheck } from '../components/FluidField'
 import { company, serviceAreas } from '../data/site'
 
 const encode = (data: Record<string, string>) =>
@@ -9,13 +22,39 @@ const encode = (data: Record<string, string>) =>
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`)
     .join('&')
 
+// Single-select icon cards for the inquiry type. The submitted `value` is what
+// lands in the Netlify form field `inquiry` (sent via the hidden input below),
+// so the backend payload stays clean and literal.
+const INQUIRY_OPTIONS: { value: string; label: string; icon: LucideIcon }[] = [
+  { value: 'Book an appointment', label: 'Book appointment', icon: CalendarHeart },
+  { value: 'Dress question', label: 'Dress question', icon: HelpCircle },
+  { value: 'Sizing', label: 'Sizing', icon: Ruler },
+  { value: 'Alterations', label: 'Alterations', icon: Scissors },
+  { value: 'Something else', label: 'Something else', icon: MessageCircle },
+]
+
 export default function Contact() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [firstName, setFirstName] = useState('')
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    'wedding-date': '',
+    message: '',
+  })
+  const [inquiry, setInquiry] = useState('')
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const form = e.currentTarget
-    const data = Object.fromEntries(new FormData(form) as unknown as Iterable<[string, string]>)
+    const el = e.currentTarget
+    const data = Object.fromEntries(new FormData(el) as unknown as Iterable<[string, string]>)
+    // Capture the first name before any reset so the thank-you can greet by name.
+    setFirstName(form.name.trim().split(/\s+/)[0] || '')
     setStatus('sending')
     try {
       await fetch('/', {
@@ -24,7 +63,7 @@ export default function Contact() {
         body: encode({ 'form-name': 'contact', ...data }),
       })
       setStatus('sent')
-      form.reset()
+      el.reset()
     } catch {
       setStatus('error')
     }
@@ -107,9 +146,12 @@ export default function Contact() {
 
             {status === 'sent' ? (
               <div className="mt-8 rounded border border-rose/30 bg-blush p-10 text-center">
+                <span className="tfb-pop mx-auto mb-2 flex h-16 w-16 items-center justify-center">
+                  <SuccessCheck />
+                </span>
                 <p className="eyebrow">Message Received</p>
                 <h3 className="mt-4 font-display text-headline-md text-ink">
-                  Thank you, and congratulations!
+                  {firstName ? `Thank You, ${firstName}!` : 'Thank you, and congratulations!'}
                 </h3>
                 <span className="rule mx-auto mt-5 block w-14" />
                 <p className="mt-6 text-body-lg text-on-surface">
@@ -120,14 +162,23 @@ export default function Contact() {
                   Ready to make it official? The most exciting part of wedding planning is just a
                   click away.
                 </p>
-                <a
-                  href={company.booking}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-7 inline-flex items-center justify-center rounded bg-taupe px-9 py-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-on-taupe transition-colors hover:bg-taupe-dark"
-                >
-                  Book Your Appointment
-                </a>
+                <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                  <a
+                    href={company.booking}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded bg-taupe px-9 py-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-on-taupe transition-colors hover:bg-taupe-dark"
+                  >
+                    <span aria-hidden="true" className="tfb-sheen pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/30 blur-md" />
+                    <CalendarHeart size={16} aria-hidden="true" /> Book Your Appointment
+                  </a>
+                  <a
+                    href={company.phoneHref}
+                    className="inline-flex items-center gap-2 border-b border-rose/50 pb-0.5 font-body text-sm font-medium text-rose-dark transition-colors hover:border-rose hover:text-rose"
+                  >
+                    <Phone size={15} aria-hidden="true" /> {company.phone}
+                  </a>
+                </div>
               </div>
             ) : (
               <form
@@ -142,24 +193,44 @@ export default function Contact() {
                 <p className="hidden">
                   <label>Don't fill this out: <input name="bot-field" /></label>
                 </p>
+                {/* Carries the selected inquiry card into the Netlify payload */}
+                <input type="hidden" name="inquiry" value={inquiry} />
 
-                <Field label="Name" name="name" type="text" required autoComplete="name" />
-                <Field label="Email" name="email" type="email" required autoComplete="email" />
-                <Field label="Phone" name="phone" type="tel" autoComplete="tel" />
-                <Field label="Wedding date (if known)" name="wedding-date" type="text" placeholder="e.g. June 2026" />
+                <FloatField label="Name" name="name" value={form.name} onChange={handleChange} required autoComplete="name" />
+                <FloatField label="Email" name="email" type="email" value={form.email} onChange={handleChange} required autoComplete="email" />
+                <FloatField label="Phone" name="phone" type="tel" value={form.phone} onChange={handleChange} autoComplete="tel" />
+                <FloatField label="Wedding date (if known)" name="wedding-date" value={form['wedding-date']} onChange={handleChange} placeholder="e.g. June 2026" />
 
-                <div>
-                  <label htmlFor="message" className="block text-label-sm uppercase tracking-[0.2em] text-on-surface-variant">
-                    How can we help?
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    required
-                    className="mt-2 w-full rounded border border-outline bg-ivory px-4 py-3 text-body-md text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-dark transition-colors placeholder:text-muted focus:border-rose"
-                  />
-                </div>
+                {/* Inquiry type as single-select icon cards */}
+                <fieldset>
+                  <legend className="mb-3 block text-label-sm uppercase tracking-[0.2em] text-on-surface-variant">
+                    What's this about?
+                  </legend>
+                  <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                    {INQUIRY_OPTIONS.map((o) => {
+                      const active = inquiry === o.value
+                      const Icon = o.icon
+                      return (
+                        <button
+                          key={o.value}
+                          type="button"
+                          aria-pressed={active}
+                          onClick={() => setInquiry(active ? '' : o.value)}
+                          className={`flex flex-col items-start gap-2 rounded border px-3.5 py-3.5 text-left font-body text-sm transition-all duration-200 active:scale-[0.98] ${
+                            active
+                              ? 'border-rose-dark bg-rose-dark text-on-taupe shadow-[0_10px_24px_-12px_rgba(156,112,98,0.7)]'
+                              : 'border-outline bg-ivory text-ink hover:border-rose hover:bg-white'
+                          }`}
+                        >
+                          <Icon size={22} strokeWidth={1.75} className={active ? 'text-on-taupe' : 'text-rose-dark'} aria-hidden="true" />
+                          <span className="font-medium leading-tight">{o.label}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </fieldset>
+
+                <FloatField label="How can we help?" name="message" value={form.message} onChange={handleChange} required textarea rows={5} />
 
                 {status === 'error' && (
                   <p className="text-body-md text-error">
@@ -171,8 +242,9 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="inline-flex items-center justify-center rounded bg-taupe px-9 py-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-on-taupe transition-colors hover:bg-taupe-dark disabled:opacity-60"
+                  className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded bg-taupe px-9 py-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-on-taupe transition-colors hover:bg-taupe-dark disabled:opacity-60"
                 >
+                  <span aria-hidden="true" className="tfb-sheen pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/30 blur-md" />
                   {status === 'sending' ? 'Sending…' : 'Send Message'}
                 </button>
               </form>
@@ -197,38 +269,5 @@ export default function Contact() {
         </div>
       </section>
     </>
-  )
-}
-
-function Field({
-  label,
-  name,
-  type,
-  required,
-  placeholder,
-  autoComplete,
-}: {
-  readonly label: string
-  readonly name: string
-  readonly type: string
-  readonly required?: boolean
-  readonly placeholder?: string
-  readonly autoComplete?: string
-}) {
-  return (
-    <div>
-      <label htmlFor={name} className="block text-label-sm uppercase tracking-[0.2em] text-on-surface-variant">
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        required={required}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        className="mt-2 w-full rounded border border-outline bg-ivory px-4 py-3 text-body-md text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-dark transition-colors placeholder:text-muted focus:border-rose"
-      />
-    </div>
   )
 }
